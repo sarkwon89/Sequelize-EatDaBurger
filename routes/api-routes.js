@@ -5,6 +5,7 @@
 // Dependencies
 // =============================================================
 
+
 // Requiring our db model
 var db = require("../models");
 
@@ -18,10 +19,12 @@ module.exports = function (app) {
     app.get("/", function (req, res) {
         db.burger.findAll({})
             .then(function (burgerdata) {
-                res.json(burgerdata);
+                console.log(burgerdata);
+                res.render("index", burgerdata);
             });
     });
 
+    //route to insert a new burger...this route is working
     app.post("/api/burgers", function (req, res) {
         console.log(req.body)
         db.burger.create({
@@ -34,18 +37,27 @@ module.exports = function (app) {
     });
 
     app.put("/api/burgers/:id", function (req, res) {
-        var condition = "id = " + req.params.id;
-
-
-
-
+        // var condition = "id = " + req.params.id;
+        db.burger.update(req.body, {
+                where: {
+                    id: req.body.id
+                }
+            })
+            .then(function (burgerdata) {
+                res.json(burgerdata);
+            });
     });
 
     app.delete("/api/burgers/:id", function (req, res) {
-        var condition = "id = " + req.params.id;
-
-
+        // var condition = "id = " + req.params.id;
+        db.burger.destroy({
+                where: {
+                    id: req.params.id
+                }
+            })
+            .then(function (burgerdata) {
+                res.json(burgerdata);
+            });
     });
-
 
 };

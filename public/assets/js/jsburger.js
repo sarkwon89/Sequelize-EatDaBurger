@@ -59,26 +59,3 @@ $(function() {
   });
 });
 
-
-
-
-var burgerdata;
-
-  // This function grabs posts from the database and updates the view
-  function getburgerdata(category) {
-    var categoryString = category || "";
-    if (categoryString) {
-      categoryString = "/category/" + categoryString;
-    }
-    $.get("/api/burger" + categoryString, function(data) {
-      console.log("burgerdb", data);
-      posts = data;
-      if (!posts || !posts.length) {
-        displayEmpty();
-      }
-      else {
-        initializeRows();
-      }
-    });
-  }
-
