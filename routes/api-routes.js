@@ -18,9 +18,12 @@ module.exports = function (app) {
     // Create all our routes and set up logic within those routes where required.
     app.get("/", function (req, res) {
         db.burger.findAll({})
-            .then(function (burgerdata) {
-                console.log(burgerdata);
-                res.render("index", burgerdata);
+            .then(function (data) {
+                var hbsObject = {
+                    burger: data
+                };
+                console.log(data);
+                res.render("index", hbsObject);
             });
     });
 
