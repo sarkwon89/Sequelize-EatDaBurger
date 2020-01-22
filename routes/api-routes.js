@@ -17,17 +17,17 @@ module.exports = function (app) {
 
     // Create all our routes and set up logic within those routes where required.
     app.get("/", function (req, res) {
-        db.burger.findAll({})
+        db.burger.findAll({raw:true})
             .then(function (data) {
-                let burgerarray = [];
-                for (let index = 0; index < data.length; index++) {
-                    // console.log(data[index].dataValues);
-                    console.log("----------------");
-                    burgerarray.push(data[index].dataValues)
-                }
+                // let burgerarray = [];
+                // for (let index = 0; index < data.length; index++) {
+                //     // console.log(data[index].dataValues);
+                //     console.log("----------------");
+                //     burgerarray.push(data[index].dataValues)
+                // }
                 // console.log(burgerarray)
                 var hbsObject = {
-                    burger: burgerarray
+                    burger: data
                 };
                 res.render("index", hbsObject);
             });
